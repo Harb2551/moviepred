@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import axios from "axios";
 const options = [
   { value: '', label: '--Please choose a movie--' },
   { value: 'Pathan', label: 'Pathan' },
@@ -19,11 +19,52 @@ const MovieForm = () => {
     });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+
+ 
+// const handleSubmit = (e) => {
+//     e.preventDefault();
+//     console.log(`Movie selected: ${formData.movie_name}`);
+//     // add code here to submit the form data to a backend or do something with it
+//     axios.post('http://127.0.0.1:5000/api/submit', formData)
+//       .then((response) => {
+//         console.log(response);
+//       })
+//       .catch((error) => {
+//         console.log(error);
+//       });
+//   };
+  const handleSubmit = async (event) => {
+    event.preventDefault();
     console.log(`Movie selected: ${formData.movie_name}`);
-    // add code here to submit the form data to a backend or do something with it
+    // try {
+    //   await axios.post('/submit-form', formData);
+    //   // handle success
+    // } catch (error) {
+    //   // handle error
+    // }
+
+
+
+
+
+    var myParams = {
+      data: formData
+  }
+
+  
+      axios.post('/api/query', myParams)
+          .then(function(response){
+              console.log(response);
+     //Perform action based on response
+      })
+      .catch(function(error){
+          console.log(error);
+     //Perform action based on error
+      });
+
+
   };
+
 
   return (
     <form onSubmit={handleSubmit}>
